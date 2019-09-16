@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Preparing own pentesting lab machine 1.0</title>
+</head>
+<style>
+    body {
+        color: black;
+        scrollbar-highlight-color: brown;
+        border: 2px;
+        padding: 10px 80px;
+    }
+
+
+
+    header {
+        color: brown;
+        position: flex;
+        display: block;
+
+    }
+
+    li {
+        color: chartreuse
+    }
+
+    footer {
+        color: cornflowerblue;
+        font-family: 'Times New Roman', Times, serif
+    }
+
+    p {
+        border-style: none;
+
+
+    }
+
+    p,
+    header {
+        box-shadow: 2px 3px 4px rebeccapurple
+    }
+
+    p,
+    header {
+        text-shadow: 3px 4px 4px red
+    }
+
+    section {
+        border-style: dotted
+    }
+
+    code {
+
+        color: red;
+        background-blend-mode: darken;
+
+    }
+</style>
+
+<body>
+    <header>
+        <h1>Instruction for settign own lab machine foe nc & ncat </h1>
+    </header>
+    <section>
+        <h1>The basic things needed </h1>
+        <p>
+            The amazon aws is giving the windows machines for free as of the date
+            <br> of blog written for 12 months as free tire.
+        </p>
+        <p>
+            >> First sign up for an account
+            <link rel="stylesheet" href="https://aws.amazon.com"><br>
+            <br> >> After signing up enter you credit /debit card details and then choose for the free tire
+            <br> >> Then go to <b>ec2</b> and choose a windows machie eligible for free tire
+            <br> >> Edit the security group for the for any ip and any range we need tcp and ssh port open
+            <br> >> While saving the <b>.pem</b>key file save it in a accessable safe location in your pc
+            <br> >> It will take sometime and see the status of up and running
+
+
+        </p>
+        <h2>
+            Setting up the host machine and getting the windows password
+
+        </h2>
+        <p>
+            <br> >> on the dash board select he windows machine and go to actions on the above left
+            <br> >> click on the <b> get windows password </b> option .
+            <br> >> select the key file from your computer and remeember the ip address and password
+            <br> >> now from the kali machine open the terminal and follow the steps
+
+        </p>
+        <h2>Acessing the windows remote desktop and installing chrome browser</h2>
+        <p>
+            <br> >> On the teminal type in the following command <code> rdeskop -u username -p password ip</code>
+            <br> >> The user naem is the <b> Administrator </b>
+            <br> >> Now after connecting to the windows machine you need to install a good browser like chrome.
+            <br> >> Open the power shell in the windows machine and paste the following code to install chrome in the
+            machien <br>
+            <code>
+                    $LocalTempDir = $env:TEMP; $ChromeInstaller = "ChromeInstaller.exe"; (new-object System.Net.WebClient).DownloadFile('http://dl.google.com/chrome/install/375.126/chrome_installer.exe', "$LocalTempDir\$ChromeInstaller"); & "$LocalTempDir\$ChromeInstaller" /silent /install; $Process2Monitor = "ChromeInstaller"; Do { $ProcessesFound = Get-Process | ?{$Process2Monitor -contains $_.Name} | Select-Object -ExpandProperty Name; If ($ProcessesFound) { "Still running: $($ProcessesFound -join ', ')" | Write-Host; Start-Sleep -Seconds 2 } else { rm "$LocalTempDir\$ChromeInstaller" -ErrorAction SilentlyContinue -Verbose } } Until (!$ProcessesFound)
+
+
+            </code>
+            <br> The last thing is to turn off the firewall which can be done by navigating to the control panel and
+            selecting the <b>privecya and security </b> option <br>
+            <br> From there just turn the fire wall offf and enjoy <div class=""></div>
+        </p>
+
+
+    </section>
+    <footer>
+        <h4>This article is written by </h4>
+        <address>
+            Rinakan Rohit Jena
+            <br>
+            rinkanrohitjena@live.com
+
+        </address>
+
+    </footer>
+
+
+</body>
+
+</html>

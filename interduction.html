@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Deamons and introduction to bash scripting </title>
+</head>
+<style>
+    body {
+        color: black;
+        scrollbar-highlight-color: brown;
+        border: 2px;
+        padding: 10px 80px;
+    }
+
+
+
+    header {
+        color: brown;
+        position: flex;
+        display: block;
+
+    }
+
+    li {
+        color: chartreuse
+    }
+
+    footer {
+        color: cornflowerblue;
+        font-family: 'Times New Roman', Times, serif
+    }
+
+    p {
+        border-style: none;
+
+
+    }
+
+    p,
+    header {
+        box-shadow: 2px 3px 4px rebeccapurple
+    }
+
+    p,
+    header {
+        text-shadow: 3px 4px 4px red
+    }
+
+    section {
+        border-style: dotted
+    }
+
+    code {
+
+        color: red;
+        background-blend-mode: darken;
+
+    }
+</style>
+
+<body>
+
+    <header>
+        <h1>
+            Introduction to kali Deamons and bash shells
+        </h1>
+        <details>
+            <ul>
+                <li>Introduction to the services and how to manage them in kali </li>
+                <li>How to write custom bash scripts (methodology )</li>
+
+            </ul>
+
+        </details>
+    </header>
+
+
+    <section>
+        <p>
+            Hi i am Rikan . <br>
+            <br>Here i would be uploading all the challanges i am facing learing cyber Security <br>
+            <br>This will be a well documented journey as i think , in my past i have never gone for a <br>
+            <br>documented journey while learing somethig but this time i am trying this as someone else can <br>
+            <br> also get help from me . By the way thanks for being a part of this journey , today is 3rd sept 2019.
+            <br>
+            <br> and my journey starts from here <br>
+
+        </p>
+
+        <h2>
+            Introduction to the services
+
+        </h2>
+        <p>
+            In introduction to the kali interface , you will notice a ton of tools which will help you to <br>
+            <br>breach the Security <br>
+            <br> The <code>ssh </code> and <code>apache2</code> are works as the sevices <br>
+            <br> They are located as in the <code>/usr/bin/</code> <br>
+            <br> The files are in the format of <code>.d </code>i.e <i class="e">demon format </i> <br>
+            <br> For example <code>/usr/bin/ssh.d</code> <br>
+            <br>To start the service or Demons the following commands are used <br>
+            <br><code>
+                systemctl service_name start/stop/restart/enable/disable
+                service service_name start/stop/restart/enable/disable 
+
+            </code>
+            <br> The above commmands can be remembered by <b>system control then service name followed by what you want
+                to do </b>
+            <ol>
+
+                <li>Example <code>service ssh start</code></li>
+
+                <li>Example <code>systemctl ssh start</code></li>
+            </ol>
+
+
+        </p>
+        <p>
+            The other way is to make a boot presistance while booting the system
+            <br>that can be done by the file <code>updat-rc.d</code>file,below is one example <br>
+            <br><i>lets assume i want ssh to be started while system boots up </i>
+            <br> The command for that will be <br>
+            <br> <code>update-rc.d enble ssh</code>
+            <br> For disabling it while start up the following code can be used <br>
+            <br> <code> updat-rc.d disable ssh </code>
+        </p>
+
+
+
+        <h2>
+            Bash Shell commands and scripts
+        </h2>
+        <p>
+            <br> Bash Shell is the terminal window what you will be using in kali for most of the time as its <br>
+            <br> the built in shell in kali machine . This usally codeed using <b>C language </b> for faster execution
+            of codes <br>
+            <br>Here i am concidering that you know a little bit about commands of linux <br>
+
+            <h3>Some of the basic commands </h3>
+            <br>some basic commands are follows which will help to locate file directory ,files in the directory. <br>
+            <ol>
+                <li><code>locate </code>:locate command is used to find where the file is located in the linux file
+                    system</li>
+                <li><code>find</code>:find is also used for the same purpose as locate and its bit slow as its serch
+                    entire directories </li>
+                <li><code>which </code>:which commmand is used to find the path of the file </li>
+            </ol>
+
+
+        </p>
+
+        <h2>syntax and use of some useful commandlines </h2>
+        <p>
+            <br> some of the syntax are given below for the above commands <br>
+            <code>
+                <i>find {directory} [option ] filename</i> <br> <b> find / -name sbd.exe</b> </code>
+            <br>:it means find in the
+            root directories a file named as sbd.exe <br>
+
+
+
+
+
+        </p>
+        <p>
+            <b> locate command works quickly as its linked to the the data base built in for file system of linux
+                os </b>the command to uppdate the data base manually is <code> updatedb</code>
+        </p>
+
+        <h2>bash scripting (one sample)</h2>
+        <p>
+            Bash scripting can be very useful and handy to automate simple tasks <br>
+            <br>for example to see the sub domain ips by itterting one by one url <br>
+            <br> in a txt file can be done through a simple bash script as follows <br>
+            <code>
+               <br> #!/bin/bash <br>
+
+            
+               <br> for url in $(cat filename.txt );
+                <br> do 
+                <br> host url |grep "address has " |cut -d "space' -f4 
+                <br> done
+
+
+
+            </code>
+            <br> open your favorite text editor like <b>emacs , nano, vi</b>and punch in the codes and see the magic
+            <br> try to write the script for the ping coomand to ping a network range <br>
+            <br> also give a try to write a script for saving a page of a website as a parameter and extract its all
+            subdomin and their ips <br>
+
+
+
+        </p>
+
+
+
+
+
+    </section>
+
+
+
+
+
+    <footer>
+        <h4>This article is written by </h4>
+        <address>
+            Rinakan Rohit Jena
+            <br>
+            rinkanrohitjena@live.com
+
+        </address>
+
+    </footer>
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>

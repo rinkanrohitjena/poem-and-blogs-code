@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Pmta installlation</title>
+</head>
+<style>
+        body {
+            color: black;
+            scrollbar-highlight-color: brown;
+            border: 2px;
+            padding: 10px 80px;
+        }
+    
+    
+    
+        header {
+            color: brown;
+            position: flex;
+            display: block;
+    
+        }
+    
+        li {
+            color: chartreuse
+        }
+    
+        footer {
+            color: cornflowerblue;
+            font-family: 'Times New Roman', Times, serif
+        }
+    
+        p {
+            border-style: none;
+    
+    
+        }
+    
+        p,
+        header {
+            box-shadow: 2px 3px 4px rebeccapurple
+        }
+    
+        p,
+        header {
+            text-shadow: 3px 4px 4px red
+        }
+    
+        section {
+            border-style: dotted
+        }
+    
+        code {
+    
+            color: red;
+            background-blend-mode: darken;
+    
+        }
+    </style>
+    
+    
+<body>
+    <h1>Pmta installlation </h1>
+
+    <h2>1. Point your domain and allow root log in </h2>
+    <p>
+            Allow Root Login:
+            -----------------
+            
+        <br>    1- Set a root password using the follwing Command:
+            sudo passwd root
+            
+           <br> 2- Open the SSH configuration File using the follwing command:
+            sudo nano /etc/ssh/sshd_config
+            
+          <br>  3- Search For PermitRootLogin and uncomment it and make sure its set to yes.
+            
+            4- Then Go down in the file and set "PasswordAuthentication" to yes.
+            
+            Save and exit.
+            
+          <br>  5- Restart SSH Service using the follwing command:
+            sudo service sshd reload
+            
+            Thats it!
+            
+    </p>
+    <h2>2.Installing vesta cp </h2>
+    <P>
+            Install Vest Control Panel
+            ---------------------------
+            
+           <br> # Download installation script
+            curl -O http://vestacp.com/pub/vst-install.sh
+            
+          <br>  # Run it
+            bash vst-install.sh
+            note : give any email id and then the server.domain.com
+    </P>
+    <h2>
+        3. Installng PMta and debugging the code    
+    </h2>
+        <P>
+            upload the file . install it by <code> rpm -ivh file name </code>
+            now apply llicence and null 
+            to debug the code <code>pmtad --debug </code>
+
+
+      </p>
+      <h2>4. Basic config and debugging </h2>
+       <h3>config file </h3>
+       <details>
+
+postmaster info@xmailing.me
+#smtp-port 25
+smtp-listener 54.218.71.176:25
+<source 0/0>
+	log-connections yes
+	log-commands    yes      # WARNING: verbose!
+  allow-unencrypted-plain-auth yes
+</source>
+sync-msg-create false
+sync-msg-update false
+run-as-root no
+log-file /var/log/pmta/log        # logrotate is used for rotation
+
+<acct-file /var/log/pmta/acct.csv>
+#    move-to /opt/myapp/pmta-acct   # configure as fit for your application
+#    move-interval 5m
+
+    max-size 50M
+</acct-file>
+
+# transient errors (soft bounces)
+<acct-file /var/log/pmta/diag.csv>
+  move-interval 1d
+  delete-after never
+  records t
+</acct-file>
+
+#
+# spool directories
+#
+
+spool /var/spool/pmta
+
+http-mgmt-port 1983
+http-access 127.0.0.1 admin
+http-access 0/0 monitor
+http-access 54.218.71.176 admin
+
+
+
+
+# BEGIN: USERS/VIRTUAL-MTA / VIRTUAL-MTA-POOL /  VIRTUAL-PMTA-PATTERN
+
+#<spool /var/spool/pmta>
+#</spool>
+<smtp-user user1>
+	password pass123
+	source {smtpuser-auth}
+</smtp-user>
+<source {smtpuser-auth}>
+	smtp-service yes
+	always-allow-relaying yes
+	require-auth true
+	process-x-virtual-mta yes
+	default-virtual-mta pmta-pool
+	remove-received-headers true
+	add-received-header false
+	hide-message-source true
+</source>
+#BEGIN VIRTUAL MTAS 
+<virtual-mta pmta-vmta1>
+smtp-source-host 54.218.71.176 server.xmailing.me
+#domain-key dkim,*,/home/admin/conf/mail/example.com/dkim.pem
+#domain-key default,*,/var/cpanel/domain_keys/private/example.com 
+<domain *>
+max-msg-rate 400/h
+</domain>
+</virtual-mta> <domain xmailing.me>
+route [127.0.0.1]:25
+</domain>
+#END VIRTUAL MTAS
+
+
+<virtual-mta-pool pmta-pool>
+virtual-mta pmta-vmta1
+</virtual-mta-pool>
+
+# END: USERS/VIRTUAL-MTA / VIRTUAL-MTA-POOL /  VIRTUAL-PMTA-PATTERN
+
+<source 127.0.0.1>
+    always-allow-api-submission yes
+    add-message-id-header yes
+    retain-x-job yes
+    retain-x-virtual-mta yes
+    verp-default yes
+    process-x-envid yes
+    process-x-job yes
+    jobid-header X-Mailer-RecptId
+    process-x-virtual-mta yes
+</source>
+
+<domain xmailing.me>
+route [127.0.0.1]:25
+</domain>
+       </details>
+
+
+
+<p>if you want the basic config just chage the domain and ip ( for amazon chage the private ip </p>
+<p>to debug and see the error run <code>pmtad --debug </code></p>
+
+<h2>
+    Testing with smtpern.net 
+</h2>
+<h2>Setting Dkim record </h2>
+<p>
+<h3>dkim commands</h3>
+<code>
+
+
+    
+        
+       <br> find / -name dkim.pem
+        
+       <br> mv dkim.pem dkim_old
+        
+       <br> openssl genrsa -out dkim.private.key 1024 
+        
+       <br> openssl rsa -in dkim.private.key -out dkim.public.key -pubout -outform PEM
+        
+       <br> mv dkim.private.key dkim.pem
+        
+       <br> vim dkim.public.key
+        
+       <br> service pmta restart
+
+</code>
+
+<h3>the dkim template</h3>
+<p>
+    <br>    Host: dkim._domainkey
+       <br> TXT Value : "v=DKIM1; k=rsa; p=MIGfMA0GCSqGSIb3DQEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+</p>
+
+>> after pasting this in dns zone . go to config file chanege and uncomment lines and also add the dkim.pem directroy and then add it , and restart pmta
+
+</p>
+
+<h2>Spf and Dmrac </h2>
+
+<p>
+       <br> SPF:
+      <br>  v=spf1 a mx ip4:54.218.71.176 -all
+        
+       <br> DMARC:
+     <br>   v=DMARC1; p=none; fo=1; rua=mailto:dmarc@xmailing.me; ruf=mailto:dmarc@xmailing.me
+ <br>
+ <br>dns zone . txt record  host @ txt valuse spf rexxord 
+
+</p>
+<h2>ip rotation </h2>
+<p>
+>> server  sub doomain 
+1. dns zone >> add trecord >> A record 
+2. pint ip to dirrrent servers 
+
+name : server  pints to ip
+
+<h3>config ip rotaiton inside thhe server config file </h3>
+<br>>>> smtp listtener
+<br> >>go down virtual mta . copy it and palste it again with changes make it vmta2
+<br> >>  make a new entry in the virtual pool 
+<br> >> restart pmta and test in smtper .net with serer and different ips 
+
+<h3>id service provicder is not configing ip then follows</h3>
+<details>
+        # If your Hosting Provider don't allow automatic Network Configuration for the second adapter, you need to run the following commands:
+
+        # Navigate to the Network Adapters Directory:
+        cd /etc/sysconfig/network-scripts
+        
+        # Copy the network configuration of the first ethernet adapter
+        cp ifcfg-eth0 ifcfg-eth0:1 
+        
+        # Open The configuration to edit
+        vim ifcfg-eth0:1 
+        
+        # set the values:
+        #BOOTPROTO=dhcp
+        DEVICE=eth0:1
+        #HWADDR=fa:16:3e:00:00:00
+        ONBOOT=yes
+        TYPE=Ethernet
+        #USERCTL=no
+        IPADDR=XXX.XXX.XXX.XXX # your IP
+        
+        
+        #restart network configuration service
+        service network restart 
+         
+</details>
+
+
+
+</p>
+<h2>installing mail server </h2>
+<p>
+
+>> installing mail wizz 
+>> delivery server >>> create new >> smtp done 
+
+</p>
+<h2>ip rotaion with spf </h2>
+<p>
+v=spf1 a mx ip4:54.218.71.176 p4:54.218.71.176 p4:54.218.71.176 ~all
+<br> https://www.appmaildev.com/en/dkim
+
+
+
+</p>
+
+
+</body>
+</html>

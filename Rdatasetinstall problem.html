@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>problem with package download in R </title>
+</head>
+<style>
+    body {
+        color: black;
+        scrollbar-highlight-color: brown;
+        border: 2px;
+        padding: 10px 80px;
+    }
+
+
+
+    header {
+        color: brown;
+        position: flex;
+        display: block;
+
+    }
+
+    li {
+        color: chartreuse
+    }
+
+    footer {
+        color: cornflowerblue;
+        font-family: 'Times New Roman', Times, serif
+    }
+
+    p {
+        border-style: none;
+
+
+    }
+
+    p,
+    header {
+        box-shadow: 2px 3px 4px rebeccapurple
+    }
+
+    p,
+    header {
+        text-shadow: 3px 4px 4px red
+    }
+
+    section {
+        border-style: dotted
+    }
+
+    code {
+
+        color: black;
+        background-blend-mode: darken;
+
+    }
+</style>
+
+<body>
+    <header>
+        <h1>Package ‘XXXXX’ is not available (for R version X.X.X)</h1>
+        <p>this problem occours when a package is not availble for the current version <br>
+            the main problem is to varify wheather the Name is correct or not </p>
+        <p>In this example i have made the same mistake of spelling of the package
+            <br>i had mispelled so this gave an error
+        </p>
+    </header>
+    <h2>How to install a package in R</h2>
+    <p>here i am giving some codes with the package names </p>
+    <section>
+        <code>
+            install.packages("PaiedData")
+            Installing package into ‘/usr/local/lib/R/site-library’
+            (as ‘lib’ is unspecified)
+            Warning in install.packages :
+              package ‘PaiedData’ is not available (for R version 3.5.2)
+
+        </code>
+    </section>
+    <p> See the original package name is PairedData but i miss spelled it so <br>
+        it gave a wrong output , now let us try with the corrrect spelling </p>
+
+    <H2>The try with the correct codes </H2>
+    <h3>
+        <code>
+            install.packages("PairedData")
+        </code>
+    </h3>
+    <h2>here is the correct output</h2>
+    <h3>
+        <section>
+            <code>
+                Installing package into ‘/usr/local/lib/R/site-library’
+(as ‘lib’ is unspecified)
+also installing the dependencies ‘e1071’, ‘lmom’, ‘gld’, ‘mvtnorm’
+
+trying URL 'https://cloud.r-project.org/src/contrib/e1071_1.7-2.tar.gz'
+Content type 'application/x-gzip' length 583003 bytes (569 KB)
+==================================================
+downloaded 569 KB
+
+trying URL 'https://cloud.r-project.org/src/contrib/lmom_2.8.tar.gz'
+Content type 'application/x-gzip' length 336215 bytes (328 KB)
+==================================================
+downloaded 328 KB
+
+trying URL 'https://cloud.r-project.org/src/contrib/gld_2.5.tar.gz'
+Content type 'application/x-gzip' length 50102 bytes (48 KB)
+==================================================
+downloaded 48 KB
+
+trying URL 'https://cloud.r-project.org/src/contrib/mvtnorm_1.0-11.tar.gz'
+Content type 'application/x-gzip' length 160498 bytes (156 KB)
+==================================================
+downloaded 156 KB
+
+trying URL 'https://cloud.r-project.org/src/contrib/PairedData_1.1.1.tar.gz'
+Content type 'application/x-gzip' length 47263 bytes (46 KB)
+==================================================
+downloaded 46 KB
+
+* installing *source* package ‘e1071’ ...
+** package ‘e1071’ successfully unpacked and MD5 sums checked
+checking for C++ compiler default output file name... a.out
+checking whether the C++ compiler works... yes
+checking whether we are cross compiling... no
+checking for suffix of executables... 
+checking for suffix of object files... o
+checking whether we are using the GNU C++ compiler... yes
+checking whether g++ accepts -g... yes
+** libs
+gcc -std=gnu99 -I"/usr/share/R/include" -DNDEBUG      -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c Rsvm.c -o Rsvm.o
+gcc -std=gnu99 -I"/usr/share/R/include" -DNDEBUG      -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c cmeans.c -o cmeans.o
+gcc -std=gnu99 -I"/usr/share/R/include" -DNDEBUG      -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c cshell.c -o cshell.o
+gcc -std=gnu99 -I"/usr/share/R/include" -DNDEBUG      -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c floyd.c -o floyd.o
+gcc -std=gnu99 -I"/usr/share/R/include" -DNDEBUG      -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c init.c -o init.o
+g++  -I"/usr/share/R/include" -DNDEBUG      -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c svm.cpp -o svm.o
+g++ -shared -L/usr/lib/R/lib -Wl,-z,relro -o e1071.so Rsvm.o cmeans.o cshell.o floyd.o init.o svm.o -L/usr/lib/R/lib -lR
+installing to /usr/local/lib/R/site-library/e1071/libs
+** R
+** inst
+** byte-compile and prepare package for lazy loading
+Error in rbind(info, getNamespaceInfo(env, "S3methods")) : 
+  number of columns of matrices must match (see arg 2)
+ERROR: lazy loading failed for package ‘e1071’
+* removing ‘/usr/local/lib/R/site-library/e1071’
+Warning in install.packages :
+  installation of package ‘e1071’ had non-zero exit status
+* installing *source* package ‘lmom’ ...
+** package ‘lmom’ successfully unpacked and MD5 sums checked
+** libs
+gfortran   -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-3.5.2=. -fstack-protector-strong  -c d1mach.f -o d1mach.o
+gfortran   -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-3.5.2=. -fstack-protector-strong  -c dqagie.f -o dqagie.o
+gfortran   -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-3.5.2=. -fstack-protector-strong  -c dqagse.f -o dqagse.o
+gfortran   -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-3.5.2=. -fstack-protector-strong  -c dqelg.f -o dqelg.o
+gfortran   -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-3.5.2=. -fstack-protector-strong  -c dqk15i.f -o dqk15i.o
+gfortran   -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-3.5.2=. -fstack-protector-strong  -c dqk21.f -o dqk21.o
+gfortran   -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-3.5.2=. -fstack-protector-strong  -c dqpsrt.f -o dqpsrt.o
+gcc -std=gnu99 -I"/usr/share/R/include" -DNDEBUG      -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c init.c -o init.o
+gcc -std=gnu99 -I"/usr/share/R/include" -DNDEBUG      -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c lmomc.c -o lmomc.o
+gfortran   -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-3.5.2=. -fstack-protector-strong  -c lmoments.f -o lmoments.o
+gfortran   -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-3.5.2=. -fstack-protector-strong  -c samlm.f -o samlm.o
+gcc -std=gnu99 -shared -L/usr/lib/R/lib -Wl,-z,relro -o lmom.so d1mach.o dqagie.o dqagse.o dqelg.o dqk15i.o dqk21.o dqpsrt.o init.o lmomc.o lmoments.o samlm.o -lgfortran -lm -lquadmath -L/usr/lib/R/lib -lR
+installing to /usr/local/lib/R/site-library/lmom/libs
+** R
+** inst
+** byte-compile and prepare package for lazy loading
+** help
+*** installing help indices
+** building package indices
+** testing if installed package can be loaded
+* DONE (lmom)
+* installing *source* package ‘mvtnorm’ ...
+** package ‘mvtnorm’ successfully unpacked and MD5 sums checked
+** libs
+gcc -std=gnu99 -I"/usr/share/R/include" -DNDEBUG      -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c C_FORTRAN_interface.c -o C_FORTRAN_interface.o
+gcc -std=gnu99 -I"/usr/share/R/include" -DNDEBUG      -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c miwa.c -o miwa.o
+gfortran   -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-3.5.2=. -fstack-protector-strong  -c mvt.f -o mvt.o
+gcc -std=gnu99 -I"/usr/share/R/include" -DNDEBUG      -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-3.5.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -g  -c mvtnorm-init.c -o mvtnorm-init.o
+gfortran   -fpic  -g -O2 -fdebug-prefix-map=/build/r-base-3.5.2=. -fstack-protector-strong  -c tvpack.f -o tvpack.o
+gcc -std=gnu99 -shared -L/usr/lib/R/lib -Wl,-z,relro -o mvtnorm.so C_FORTRAN_interface.o miwa.o mvt.o mvtnorm-init.o tvpack.o -lgfortran -lm -lquadmath -L/usr/lib/R/lib -lR
+installing to /usr/local/lib/R/site-library/mvtnorm/libs
+** R
+** inst
+** byte-compile and prepare package for lazy loading
+** help
+*** installing help indices
+** building package indices
+** installing vignettes
+** testing if installed package can be loaded
+* DONE (mvtnorm)
+ERROR: dependency ‘e1071’ is not available for package ‘gld’
+* removing ‘/usr/local/lib/R/site-library/gld’
+Warning in install.packages :
+  installation of package ‘gld’ had non-zero exit status
+ERROR: dependency ‘gld’ is not available for package ‘PairedData’
+* removing ‘/usr/local/lib/R/site-library/PairedData’
+Warning in install.packages :
+  installation of package ‘PairedData’ had non-zero exit status
+
+The downloaded source packages are in
+	‘/tmp/RtmpIJXXRU/downloaded_packages’
+            </code>
+        </section>
+    </h3>
+</body>
+
+</html>

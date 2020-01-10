@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Pmta installlation</title>
+</head>
+<style>
+        body {
+            color: black;
+            scrollbar-highlight-color: brown;
+            border: 2px;
+            padding: 10px 80px;
+        }
+    
+    
+    
+        header {
+            color: brown;
+            position: flex;
+            display: block;
+    
+        }
+    
+        li {
+            color: chartreuse
+        }
+    
+        footer {
+            color: cornflowerblue;
+            font-family: 'Times New Roman', Times, serif
+        }
+    
+        p {
+            border-style: none;
+    
+    
+        }
+    
+        p,
+        header {
+            box-shadow: 2px 3px 4px rebeccapurple
+        }
+    
+        p,
+        header {
+            text-shadow: 3px 4px 4px red
+        }
+    
+        section {
+            border-style: dotted
+        }
+    
+        code {
+    
+            color: red;
+            background-blend-mode: darken;
+    
+        }
+    </style>
+    
+    
+<body>
+    <h1>Pmta installlation </h1>
+
+    <h2>1. Point your domain and allow root log in </h2>
+    <p>
+            Allow Root Login:
+        <br>change the host name to <code>ns1.example.com and ip </code>   for godaddy go to dns management and advanced featutes <br>
+        <br>chager the name servers too on the hsoting <br>
+            
+        <br>    1- Set a root password using the follwing Command:
+            sudo passwd root
+            
+           <br> 2- Open the SSH configuration File using the follwing command:
+            sudo nano /etc/ssh/sshd_config
+            
+          <br>  3- Search For PermitRootLogin and uncomment it and make sure its set to yes.
+            
+            4- Then Go down in the file and set "PasswordAuthentication" to yes.
+            
+            Save and exit.
+            
+          <br>  5- Restart SSH Service using the follwing command:
+            sudo service sshd reload
+            
+            Thats it!
+            
+    </p>
+    <h2>2.Installing vesta cp </h2>
+    <P>
+            Install Vest Control Panel
+            ---------------------------
+            
+           <br> # Download installation script <code>
+            curl -O http://vestacp.com/pub/vst-install.sh </code>
+            
+          <br>  # Run it
+           <br> <code> bash vst-install.sh</code>
+            note : give any email id and then the server.domain.com
+    </P>
+    <h2>
+        3. Installng PMta and debugging the code    
+    </h2>
+        <P>
+            upload the file . install it by <code> rpm -ivh file name </code>
+            now apply llicence and null 
+            to debug the code <code>pmtad --debug </code>
+
+
+      </p>
+      <h2>4. Basic config and debugging </h2>
+       <h3>config file </h3>
+    
+
+<p>if you want the basic config just chage the domain and ip ( for amazon chage the private ip </p>
+<p>to debug and see the error run <code>pmtad --debug </code></p>
+
+
+<h2>5 . logging into vesta cp and doing task</h2>
+    <ol>
+        <li>add the domain</li>
+        <li>add the name server</li>
+        <li>add records </li>
+        <li>create 2-3 email accounts <b>info , bounce ,admin etc</b></li>
+
+
+
+
+
+
+
+    </ol>
+    <h3>Dove cut issues</h3>
+        <p>
+            <code>vim /etc/dovecot/dovecot.conf</code>
+            <br>add the following to the file in the end
+            <code>
+                    namespace inbox {
+                        inbox = yes
+                        }
+            </code>
+            <br> restart dovecot
+        </p>
+
+
+<h2>
+    Testing with smtper.net 
+</h2>
+<h2>6.Setting Dkim record </h2>
+<p>
+<h3>dkim commands</h3>
+<code>
+
+
+    
+        
+       <br> find / -name dkim.pem
+        
+       <br> mv dkim.pem dkim_old
+        
+       <br> openssl genrsa -out dkim.private.key 1024 
+        
+       <br> openssl rsa -in dkim.private.key -out dkim.public.key -pubout -outform PEM
+        
+       <br> mv dkim.private.key dkim.pem
+        
+       <br> vim dkim.public.key
+        
+       <br> service pmta restart
+
+</code>
+
+<h3>the dkim template</h3>
+<p>
+    <br>    Host: dkim._domainkey
+       <br> TXT Value : "v=DKIM1; k=rsa; p=MIGfMA0GCSqGSIb3DQEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+</p>
+
+>> after pasting this in dns zone . go to config file chanege and uncomment lines and also add the dkim.pem directroy and then add it , and restart pmta
+
+</p>
+
+<h2>7.Spf and Dmrac </h2>
+
+<p>
+       <br> SPF:
+      <br>  v=spf1 a mx ip4:54.218.71.176 -all
+        
+       <br> DMARC:
+     <br>   v=DMARC1; p=none; fo=1; rua=mailto:dmarc@xmailing.me; ruf=mailto:dmarc@xmailing.me
+ <br>
+ <br>dns zone . txt record  host @ txt valuse spf rexxord 
+
+</p>
+<h2>8.ip rotation </h2>
+<p>
+>> server  sub doomain 
+1. dns zone >> add trecord >> A record 
+2. pint ip to dirrrent servers 
+
+name : server  pints to ip
+
+<h3>config ip rotaiton inside thhe server config file </h3>
+<br>>>> smtp listtener
+<br> >>go down virtual mta . copy it and palste it again with changes make it vmta2
+<br> >>  make a new entry in the virtual pool 
+<br> >> restart pmta and test in smtper .net with serer and different ips 
+
+<h3>id service provicder is not configing ip then follows</h3>
+<details>
+       <br> # If your Hosting Provider don't allow automatic Network Configuration for the second adapter, you need to run the following commands:
+
+       <br> # Navigate to the Network Adapters Directory:
+       <br> cd /etc/sysconfig/network-scripts
+        
+       <br> # Copy the network configuration of the first ethernet adapter
+       <br> cp ifcfg-eth0 ifcfg-eth0:1 
+        
+       <br> # Open The configuration to edit
+       <br> vim ifcfg-eth0:1 
+        
+       <br> # set the values:
+       <br> #BOOTPROTO=dhcp
+       <br> DEVICE=eth0:1
+       <br> #HWADDR=fa:16:3e:00:00:00
+       <br> ONBOOT=yes
+       <br> TYPE=Ethernet
+       <br> #USERCTL=no
+       <br> IPADDR=XXX.XXX.XXX.XXX # your IP
+        
+        
+       <br> #restart network configuration service
+       <br> service network restart 
+         
+</details>
+
+
+
+</p>
+<h2>9.installing mail server </h2>
+<p>
+
+>> installing mail wizz 
+>> delivery server >>> create new >> smtp done 
+
+</p>
+<h2>ip rotaion with spf </h2>
+<p>
+v=spf1 a mx ip4:54.218.71.176 p4:54.218.71.176 p4:54.218.71.176 ~all
+<br> https://www.appmaildev.com/en/dkim
+
+
+
+</p>
+
+
+
+</body>
+</html>

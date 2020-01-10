@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>how to update your files into git hub (version control )</title>
+</head>
+<style>
+    body {
+        color: black;
+        scrollbar-highlight-color: brown;
+        border: 2px;
+        padding: 10px 80px;
+    }
+
+
+
+    header {
+        color: brown;
+        position: flex;
+        display: block;
+
+    }
+
+    li {
+        color: chartreuse
+    }
+
+    footer {
+        color: cornflowerblue;
+        font-family: 'Times New Roman', Times, serif
+    }
+
+    p {
+        border-style: none;
+
+
+    }
+
+    p,
+    header {
+        box-shadow: 2px 3px 4px rebeccapurple
+    }
+
+    p,
+    header {
+        text-shadow: 3px 4px 4px red
+    }
+
+    section {
+        border-style: dotted
+    }
+
+    code {
+
+        color: red;
+        background-blend-mode: darken;
+
+    }
+</style>
+
+<body>
+
+    <header>
+        <h1>version control by git hub , or updating you codes into git hub</h1>
+        <details>
+            <ul>
+                <li>Here only how to update i.e - how to push is explained </li>
+                <li>This assumes you have a git hub or bit bucket account </li>
+                <li>author email <ADdress>rinkanrohitjena@live.com</ADdress>
+                </li>
+
+            </ul>
+        </details>
+    </header>
+
+    <section>
+        <h1>How to install git in your linux system is instructed here </h1>
+        <p>
+            <br>>>if you have not installed the git on your computer type the following commands <br>
+            <br>
+            <code>apt-get install git</code>
+            <br>this will install git on your pc <br>
+            <br> now visit to
+            <link rel="stylesheet" href="https://github.com">and sign up
+            <br>
+            <br> in your computer open the terminal and type <br>
+            <br>
+            <br><code>git config --global user.name "john doe"</code>
+            <br>replace the user name with your user name <br>
+            <br><code>git config --global user.email example@example.com</code>
+            <br>replace the email address with your email id <br>
+            <br>and type the following command as it it <br>
+            <br>
+            <code>git config --global push.default matching</code>
+            <br>
+            <br><code>git config --global alias.co checkout</code>
+            <br>
+            after you are finished with all these steps follow the steps below
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </p>
+    </section>
+    <section class="body class one ">
+        <p>
+            <h2>Here is steps to starts after installing </h2>
+            <p>>> open up your browser and go to
+                <link rel="stylesheet" href="https://github.com/"> or bit bucket and sign up </p>
+            <p>>> after that go to settings and create a new Repositary <br>under Repositary menu <br>
+                <br>dont close the open page as it needs has instructions <br>
+                you need to addone ssh key in order to secure your connection</p>
+            <p>>> for adding the key go to setting and click on <em>add a key</em>
+                <br>at the same time move to your project folder by <br>
+                <br>
+                <code>cd /root/Documents /examplefolder</code>
+                <br>
+                <br>you need the ssh key so type
+                <br>
+                <code> cat /root/.ssh/id_rsa.pub </code>
+
+                <br>
+                <br> and copy the out put and paste it in the key in
+                <link rel="stylesheet" href="github.com">
+            </p>
+
+
+        </p>
+        <p>
+            <h2>how to work with the git Repositary</h2>
+            <p> <br>you need to intialise git in your directory so type <br>
+                <br><COde>  git init </COde>
+                <br>
+                <br>from the Repositary page copy the code which looks like follows <br>
+                <br><code>git remote add origin git@github.com:rinkanrohitjena/rstudiocode.git</code>
+                <br>
+                <br>Then to add all files to git you need to type <br>
+                <br><code>git add .</code>
+                <br>
+                <br>now git wants you to make chages with a comment for that you need to type the command below <br>
+                <br> <code>git commit -m "first commit"</code>
+                <br>
+                <br> the first commit is your comment about the version ,you can type too version1.o <br>
+                <br> now you need to upload the files into git hub <br>
+                <br>the command for first time upload is follows <br>
+                <br><code>git push -u origin master</code>
+                <br>
+                <br> this will ulodad your code to the git hub for the first time <br>
+                <br>again when you made any changes to codes and you want to update you need to upload <br>
+                <br>
+                <code>git push</code>
+                <br>this will upload your code with out hassel <br>
+
+
+
+
+
+            </p>
+        </p>
+    </section>
+    <footer>
+        <h4>This article is written by </h4>
+        <address>
+            Rinakan Rohit Jena
+            <br>
+            rinkanrohitjena@live.com
+
+        </address>
+
+    </footer>
+</body>
+
+</html>

@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>How to install wine in kalilinux </title>
+</head>
+<style>
+    body {
+        color: black;
+        scrollbar-highlight-color: brown;
+        border: 2px;
+        padding: 10px 80px;
+    }
+
+
+
+    header {
+        color: brown;
+        position: flex;
+        display: block;
+
+    }
+
+    li {
+        color: chartreuse
+    }
+
+    footer {
+        color: cornflowerblue;
+        font-family: 'Times New Roman', Times, serif
+    }
+
+    p {
+        border-style: none;
+
+
+    }
+
+    p,
+    header {
+        box-shadow: 2px 3px 4px rebeccapurple
+    }
+
+    p,
+    header {
+        text-shadow: 3px 4px 4px red
+    }
+
+    section {
+        border-style: dotted
+    }
+
+    code {
+
+        color: black;
+        background-blend-mode: darken;
+
+    }
+</style>
+
+
+<body>
+    <blockquote>
+        <h1>How to install wine in kali linux full guide </h1>
+    </blockquote>
+    <section>
+        <p>
+            i was trying to install wine in my kali but i was failing again and again <br>
+            as kali is based on the debian version of linux , and also people rarely luse <br>
+            kali linux as their first operating system.
+
+        </p>
+        <h2>Here is how i did it</h2>
+        <p>
+            >>first you need to add the proper architecture i386 into your system <br>
+            for that use the following code
+
+            <code>
+
+            sudo dpkg --add-architecture i386
+        </code>
+        </p>
+        <p>
+            <br>>>the next thing you need to get is the key <br>
+            <code>
+                wget -nc https://dl.winehq.org/wine-builds/winehq.key
+
+        </code>
+
+        </p>
+
+        <p>
+            <br>>> now time for some heavy lifting <br>
+            you need to add the the source into the <em>source.list</em>
+        </p>
+        <code>emacs /etc/apt/sources.list </code> <br>
+        >>just copy the link and paste it in the source.list <br>
+        <br>https://dl.winehq.org/wine-builds/debian/ stretch main <br>
+
+
+        <p>
+            >>now as you have added the link to your source.list <br>
+            you need to update it now by <code>apt-get update</code>
+        </p>
+        >>installing the stable version of wine
+        <code>sudo apt install --install-recommends winehq-stable
+            </code>this will install the stable version of the wine <br>
+        this will take soem time to download
+        </p>
+        <p>
+            >>To easily install some well know application you need to install <em>winetricks</em>
+            to install winetricks run the following command <code>apt-get install winetricks</code>
+
+        </p>
+        <p>
+            >>after the installation of all these things if you want to install any .exe file the follow the following
+            command
+            <br>i am considering the file is in the Downloads <br>
+            <ul>
+                <li>
+                    <code>
+            cd /root/Downloads
+        </code>
+                </li>
+                <li>
+                    <code>
+            wine example.exe
+        </code>
+                </li>
+            </ul>
+        </p>
+        <p>
+            >> To run the exe file or your software
+            <br>you need to navigate to the folder where the application is available <br>
+            normally the application path is <br>
+            <code>
+                /root/.wine/drive_c/users/Public/Desktop
+        </code>
+            </b>
+        </p>
+        <p> for the ease of use you can edit the alias, so we will use
+            <b>emacs, nautilus and .bashrc</b>
+            <br>
+            <code>
+            emacs ~/.bashrc <br>
+            <br>
+
+        <p>
+            you need to copy and paste it in the .bashrc file <br>
+            <code>
+            alias windesk = 'nautilus /root/.wine/drive_c/users/Public/Desktop'
+            </code>
+        </p>
+        <br>
+        now you can just type <b>windesk</b> in the terminal and enjoy <br>
+
+        </p>
+
+
+        </code>
+    </section>
+
+    </p>
+    <details title="The sample of source.list and .bashrc">
+        <ul>
+            <li>
+                <p>
+                    here is how the <b>source.list</b>looks like <br>
+
+                </p>
+                <code>
+                        deb http://http.kali.org/kali kali-rolling main non-free contrib
+
+                        deb-src  http://http.kali.org/kali kali kali-rolling main non-free contrib
+                        
+                        
+                        
+                         
+                        
+                         deb https://dl.winehq.org/wine-builds/debian/ stretch main 
+
+                </code>
+
+
+            </li>
+            <li>
+                <p>
+                    here is how the <b>.bashrc </b>looks like <br>
+                </p>
+                <code>
+                        # ~/.bashrc: executed by bash(1) for non-login shells.
+                        # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
+                        # for examples
+                        
+                        # If not running interactively, don't do anything
+                        case $- in
+                            *i*) ;;
+                              *) return;;
+                        esac
+                        
+                        # don't put duplicate lines or lines starting with space in the history.
+                        # See bash(1) for more options
+                        HISTCONTROL=ignoreboth
+                        
+                        # append to the history file, don't overwrite it
+                        shopt -s histappend
+                        
+                        # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
+                        HISTSIZE=1000
+                        HISTFILESIZE=2000
+                        
+                        # check the window size after each command and, if necessary,
+                        # update the values of LINES and COLUMNS.
+                        shopt -s checkwinsize
+                        
+                        # If set, the pattern "**" used in a pathname expansion context will
+                        # match all files and zero or more directories and subdirectories.
+                        #shopt -s globstar
+                        
+                        # make less more friendly for non-text input files, see lesspipe(1)
+                        #[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
+                        
+                        # set variable identifying the chroot you work in (used in the prompt below)
+                        if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
+                            debian_chroot=$(cat /etc/debian_chroot)
+                        fi
+                        
+                        # set a fancy prompt (non-color, unless we know we "want" color)
+                        case "$TERM" in
+                            xterm-color) color_prompt=yes;;
+                        esac
+                        
+                        # uncomment for a colored prompt, if the terminal has the capability; turned
+                        # off by default to not distract the user: the focus in a terminal window
+                        # should be on the output of commands, not on the prompt
+                        force_color_prompt=yes
+                        
+                        if [ -n "$force_color_prompt" ]; then
+                            if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
+                            # We have color support; assume it's compliant with Ecma-48
+                            # (ISO/IEC-6429). (Lack of such support is extremely rare, and such
+                            # a case would tend to support setf rather than setaf.)
+                            color_prompt=yes
+                            else
+                            color_prompt=
+                            fi
+                        fi
+                        
+                        if [ "$color_prompt" = yes ]; then
+                            PS1='${debian_chroot:+($debian_chroot)}\[\033[01;31m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+                        else
+                            PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+                        fi
+                        unset color_prompt force_color_prompt
+                        
+                        # If this is an xterm set the title to user@host:dir
+                        case "$TERM" in
+                        xterm*|rxvt*)
+                            PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
+                            ;;
+                        *)
+                            ;;
+                        esac
+                        
+                        # enable color support of ls and also add handy aliases
+                        if [ -x /usr/bin/dircolors ]; then
+                            test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+                            alias ls='ls --color=auto'
+                            #alias dir='dir --color=auto'
+                            #alias vdir='vdir --color=auto'
+                        
+                            #alias grep='grep --color=auto'
+                            #alias fgrep='fgrep --color=auto'
+                            #alias egrep='egrep --color=auto'
+                        fi
+                        
+                        # some more ls aliases
+                        #alias ll='ls -l'
+                        #alias la='ls -A'
+                        #alias l='ls -CF'
+                        alias desktop='cd  /root/Desktop/'
+                        alias windp='nautilus /root/.wine/drive_c/users/Public/Desktop/'
+                        # Alias definitions
+                        # You may want to put all your additions into a separate file like
+                        # ~/.bash_aliases, instead of adding them here directly.
+                        # See /usr/share/doc/bash-doc/examples in the bash-doc package.
+                        
+                        if [ -f ~/.bash_aliases ]; then
+                            . ~/.bash_aliases
+                        fi
+                        
+                        # enable programmable completion features (you don't need to enable
+                        # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
+                        # sources /etc/bash.bashrc).
+                        if ! shopt -oq posix; then
+                          if [ -f /usr/share/bash-completion/bash_completion ]; then
+                            . /usr/share/bash-completion/bash_completion
+                          elif [ -f /etc/bash_completion ]; then
+                            . /etc/bash_completion
+                          fi
+                        fi
+
+                </code>
+
+            </li>
+        </ul>
+
+    </details>
+    <footer>
+        <h4>This article is written by </h4>
+        <address>
+            Rinakan Rohit Jena
+            <br>
+            rinkanrohitjena@live.com
+
+        </address>
+
+    </footer>
+
+</body>
+
+</html>
